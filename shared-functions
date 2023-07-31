@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# Prints an error message to standard error and exits the script with the previous pipeline's exit code.
+:die() {
+	local -r status=$?
+
+	(($#)) && >&2 print_warning "$*"
+	exit $((status ? status : 1))
+}
+
+:retry() {
+	local -a args
+	(($#)) && >&2 echo "$1"
+	# Run the function name passed as 2nd argument, with args from 3rd passed argument onwards
+	args=("${@:3}")
+	$2 "${args[@]}"
+}
+
+# Adds the English ordinal suffix to the specified number.
+ordinal() {
+	local -r n=$1
+
+	case $n in
+		1?) echo "${n}th";;
+		*1) echo "${n}st";;
+		*2) echo "${n}nd";;
+		*3) echo "${n}rd";;
+		*) echo "${n}th";;
+	esac
+}
+
+print_info() {
+	>&2 echo -e "$BLUE$1$NC"
+}
+
+print_warning() {
+	>&2 echo -e "$RED$1$NC"
+}
+
+print_option() {
+	local -r option="$1"
+	local -r option_width="$2" # Negative number: left align, positive: right align
+	local -r option_desc="$3"
+	local -r padding=${4:-0}
+	printf '%s%'"$option_width"'s%-'"$padding"'s\n' "$GREEN" "$option" "$NC$option_desc"
+}
+
+prompt() {
+	local value
+	read -er -p "$YELLOW$1:$NC " value
+	echo "$value"
+}
+
+arg_or_prompt() {
+	value=${1:-$(prompt "$2")}
+  	echo "$value"
+}

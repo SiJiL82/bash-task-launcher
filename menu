@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+source ./colours
+source ./task-functions
+source ./shared-functions
+
+menu() {
+	local tasks task i=0 input x_option
+
+	mapfile -t tasks <<<"$1"
+
+	echo
+
+	for task in "${tasks[@]}"; do
+		print_option "$((++i))" 2 ": $("$task":describe)" 58
+	done | column
+	
+	if [[ $("${tasks[0]}":menu) = "MAIN_MENU" ]]; then
+		x_option="Exit"
+	else
+		x_option="Back"
+	fi
+	print_option "x" 2 ": $x_option"
+
+	input=$(prompt "Input selection")
+
+	if ((input > 0 && input <= ${#tasks[@]})); then
+		# Execute task in a subshell.
+		(${tasks[$((input - 1))]})
+	elif [[ $input =~ ^[xX]?$ ]]; then
+		exit
+	else
+		print_warning "Invalid selection: '$input'"
+	fi
+
+	menu "$@"
+}

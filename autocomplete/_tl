@@ -1,0 +1,7 @@
+#compdef tl
+local -a commands
+commands=(
+'build-autocomplete:Build shell autocomplete files'
+'menu:Show the helper menu'
+)
+_describe 'tl' commands

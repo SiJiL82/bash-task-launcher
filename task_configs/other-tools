@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+build-autocomplete:menu() (echo UTILS_MENU)
+build-autocomplete:describe() (echo 'Build shell autocomplete files')
+build-autocomplete() {
+	build_autocomplete_zsh
+	build_autocomplete_bash
+}

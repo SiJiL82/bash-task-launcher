@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+SCRIPT_PATH="$(dirname "${BASH_SOURCE[0]}")"
+source "$SCRIPT_PATH"/shared-functions
+
+for file in "$SCRIPT_PATH/task_configs"/*;do
+	# shellcheck source=/dev/null
+	source "$file"
+done
+
+tasks:scan() {
+	for file in "$SCRIPT_PATH/task_configs"/*;do
+		sed -e '/^\([a-z][a-z-]*\):describe().*/!d' -e 's//\1/' "$file"
+	done
+}
+
+# Filters the list of valid tasks by excluding any matching the specified meta tags.
+tasks:filter() {
+	local task
+	tasks:scan | while read -r task; do
+		[[ ! $(type -t "$task:meta") = function || ! $("$task:meta") =~ $1 ]] && echo "$task"
+	done
+}
+
+# Filter the list of valid tasks to only include any matching the specified menu name
+# Also include tasks that have "NO_MENU" as their menu name - these don't appear on menus
+# but make the task available to other tasks.
+tasks:menuitems() {
+	local task
+
+	tasks:scan | while read -r task; do
+		[[ $("$task:menu") = "$1" || "$1" = "NO_MENU" ]] && echo "$task"
+	done
+}
+
+build_autocomplete_zsh() {
+	local -a tasks
+	local task autocomplete_file
+
+	readarray -t tasks <<< "$(tasks:filter 'NO-RUNNER|NO-AUTOCOMPLETE' | sort)"
+
+	autocomplete_file="./autocomplete/_tl"
+
+	{
+		echo "#compdef tl"
+		echo "local -a commands"
+		echo "commands=("
+		for task in "${tasks[@]}"; do
+			echo "'${task}:$("$task":describe)'"
+		done
+		echo "'menu:Show the helper menu'"
+		echo ")"
+		echo "_describe 'tl' commands"
+	} > "$autocomplete_file"
+}
+
+build_autocomplete_bash() {
+	local -a tasks
+	local task autocomplete_file
+
+	readarray -t tasks <<< "$(tasks:filter 'NO-RUNNER|NO-AUTOCOMPLETE' | sort)"
+	autocomplete_file="./autocomplete/sd.bash"
+	
+	{
+		echo "#!/usr/bin/env bash"
+		echo "commands='"
+		for task in "${tasks[@]}"; do
+			echo "${task}"
+		done
+		echo "menu"
+		echo "'"
+		echo -e "complete -W \"\${commands}\" 'tl'"
+	} > "$autocomplete_file"
+}

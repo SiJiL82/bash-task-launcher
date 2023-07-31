@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+source ./task-functions
+source ./colours
+
+get_exported_tasks() {
+	tasks:filter NO-RUNNER
+}
+
+runner:has_task() {
+	[[ $1 ]] && grep -Fxq -- "$1" <<<"$(get_exported_tasks)"
+}
+
+runner:help() {
+	local -r tasks=$(get_exported_tasks)
+	local task task_name_lengths longest_task_name
+
+	cat <<-.
+		${BLUE}usage:$NC '$0' <task> [arg]...
+
+		${BLUE}These tasks are available:$NC
+
+	.
+
+	# Determine longest task name length.
+	while read -r task; do
+		task_name_lengths+=${#task}$'\n'
+	done <<<"$tasks"
+	longest_task_name=$(sort -nr <<<"$task_name_lengths" | head -1)
+
+	while read -r task; do
+		print_option "$task" "$((-longest_task_name))" " $("$task":describe)"
+	done < <(sort <<<"$tasks")
+	echo
+}
