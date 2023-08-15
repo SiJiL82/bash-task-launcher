@@ -1,7 +1,47 @@
 = Task Launcher
+:imagesdir: ./docs/images
 :toc:
 
 == About
+Task Launcher is a bash based CLI script that can be used to run a series of commonly run commands with a shorter alias. +
+For example, if you regularly run the following commands to build and run your project:
+[source,bash]
+----
+cd ~/projects/my_project/src
+npm build-dev
+npm start
+----
+You could create a Task Launcher task called `build-and-run` that contains these commands, and run them from anywhere in your shell by simply calling `tl build-and-run`.
+
+Task Launcher also includes a CLI menu for all the tasks you've created, allowing you to execute the tasks available by entering their numeric input. +
+The menu includes support for sub-menus, allowing you to group related tasks together.
+
+image::tl_menu_submenu_example.png[]
+
+== Getting Started
+To start using Task Launcher, clone this repo: +
+`git clone https://github.com/SiJiL82/bash-task-launcher.git`
+
+If you want to create a task launcher with tasks for your existing project (for example to speed up common developer tasks),
+clone this repo inside your project. +
+You can change the launcher command to one relative to your project, which allows you to have a Task Launcher config specifically for your project. +
+To do so, simply rename the `tl` file to whatever you want the command to be to call your launcher. +
+For example, if you're working on "My Cool Website", you could rename `tl` to `mcw` which will allow you to call the launcher tasks with `mcw build-and-run`.  
+
+=== Using the Launcher
+To view available tasks the launcher can call, run any of `tl -h`, `tl h`, `tl help` or `tl --help`:
+
+image::tl_help.png[]
+
+To run a task directly, simply call `tl` followed by the task name:
+
+image::tl_cli_example.png[]
+
+To launch the interactive menu, call `tl m` or `tl menu`:
+
+image::tl_menu_example.png[]
+
+You can then launch any of the tasks, or enter any of the sub menus by entering the numeric indicator next to the task description.
 
 == Installation
 === Shell Autocomplete
