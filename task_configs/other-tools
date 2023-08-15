@@ -3,6 +3,8 @@
 build-autocomplete:menu() (echo UTILS_MENU)
 build-autocomplete:describe() (echo 'Build shell autocomplete files')
 build-autocomplete() {
-	build_autocomplete_zsh
-	build_autocomplete_bash
+	autoCompletePath="./autocomplete"
+	find "$autoCompletePath" -mindepth 1 -delete
+	build_autocomplete_zsh "$autoCompletePath"
+	build_autocomplete_bash "$autoCompletePath"
 }
