@@ -89,6 +89,8 @@ Task names must be unique across the entire launcher - tasks on different sub me
 *_Note:_* _Your task name can only contain the charactes `a-z` (lowercase only) and the `-` character. +
 You cannot separate words in your task name with spaces or underscores._
 
+Tasks are listed on the menu in the order they appear in the files in. To re-order the menu(s), simply re-order the task definitions in the task config files.
+
 Edit the file in `task_configs` that contains the menu or sub-menu that your task relates to. +
 You can add all task and sub-menu definitions to a single file (such as `task_configs/main`) if you wish, however it is recommended to create a separate file for each sub-menu to keep the configs tidy and easy to maintain.
 
@@ -101,7 +103,18 @@ example() {
     # Enter your commands here
 }
 ----
-Replace the `example` task name with your new task name.
+Replace the `example` task name with your new task name, for each of the `example:menu`, `example:describe` and `example` functions. +
+For example:
+[source,bash]
+----
+build-and-run:menu() (echo MAIN_MENU)
+build-and-run:describe() (echo 'Build and start the web application')
+build-and-run() {
+    cd ~/projects/my_project/src
+    npm build-dev
+    npm start
+}
+----
 
 If your task needs to be in a sub-menu, replace `MAIN_MENU` with the name of your sub-menu.
 
@@ -115,8 +128,8 @@ Save the file and test it by running `tl task-name`
 _When your new task is complete, update the autocomplete files to include it_
 
 === Creating Sub Menus
-To prevent the initial menu screen from becoming overwhelming with many tasks in it, you can create sub-menus to group related tasks together intuitively. +
-*_Note:_* _A task being in a sub-menu does not affect the way it is called on the CLI in any way_
+To prevent the initial menu screen from becoming overwhelming to the user, you can create sub-menus to group related tasks together intuitively. +
+*_Note:_* _A task being in a sub-menu does not affect how it is called on the CLI in any way_
 
 It is recommended to create tasks in a sub-menu in a separate file to keep the config files from becoming difficult to maintain. +
 However, if you want your sub-menu option to appear on the main menu, you should create the sub-menu task in the `task_configs/main` file. +
@@ -136,7 +149,7 @@ example-menu() {
 	menu "$(tasks:menuitems EXAMPLE_MENU)"
 }
 ----
-Replace the `example-menu` task name with your new menu task name (e.g.: `npm-tools-menu`).
+Replace the `example-menu` task name with your new menu task name (e.g.: `npm-tools-menu`) for each of `example-menu:menu`, `example-menu:meta`, `example-menu:describe` and `example-menu`
 
 Do not edit the `:meta` definition. This is required to prevent the sub-menu task being listed as an available task to run.
 
@@ -144,22 +157,36 @@ Enter a suitable description for your sub-menu.
 
 Inside the menu definition function, replace `EXAMPLE_MENU` with the name of your new menu (e.g.: `NPM_TOOLS_MENU`).
 
+For example:
+[source,bash]
+----
+npm-tools-menu:menu() (echo MAIN_MENU)
+npm-tools-menu:meta() (echo NO-RUNNER)
+npm-tools-menu:describe() (echo 'NPM Tools')
+npm-tools-menu() {
+	menu "$(tasks:menuitems NPM_TOOLS_MENU)"
+}
+----
+
 Update any tasks that you want to appear on the sub-menu, setting their `:menu` definition to match the name you have just assigned above. +
 For example:
 [source,bash]
 ----
-example:menu() (echo EXAMPLE_MENU)
-example:describe() (echo 'An example task')
-example() {
-    echo "This is an example task doing stuff"
+build-and-run:menu() (echo NPM_TOOLS_MENU)
+build-and-run:describe() (echo 'Build and start the web application')
+build-and-run() {
+    cd ~/projects/my_project/src
+    npm build-dev
+    npm start
 }
 ----
 
 === Creating Task Config Files
 To create a file to add task definitions to:
-* Create the file: `touch ./task_configs/submenu`
-* Make the file executable: `chmod +x ./task_configs/submenu`
-* Add the bash shebang to the top of the file: `#!/usr/bin/env bash`
+
+ * Create the file: `touch ./task_configs/submenu`
+ * Make the file executable: `chmod +x ./task_configs/submenu`
+ * Add the bash shebang to the top of the file: `#!/usr/bin/env bash`
 
 == Other Features
 === Useful Task Functions
@@ -213,7 +240,7 @@ example:menu() (echo EXAMPLE_MENU)
 example:describe() (echo 'An example task')
 example() {
     name=$(arg_or_prompt "$1" "Enter your name")
-	echo "Hello $name"
+    echo "Hello $name"
 }
 ----
 
