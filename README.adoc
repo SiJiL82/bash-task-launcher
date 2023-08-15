@@ -228,3 +228,22 @@ example() {
     cd ./directory_that_doesnt_exist || :die "Cannot change directory"
 }
 ----
+
+=== Task Functions
+If you have common commands that are shared across a number of tasks, it is recommended to create a function containing those commands in the `task-functions` file.
+
+This is entirely optional, however doing so helps to keep the task config files tidy and maintainable.
+
+== Contributing
+=== Issues / bugs
+If you clone the repo and find anything not working correctly, please https://github.com/SiJiL82/bash-task-launcher/issues[raise an issue]
+
+=== Have a Question?
+If you need any help getting Task Launcher up and running, creating a task for it, or have an idea for an improvement (that you can't make your self) please https://github.com/SiJiL82/bash-task-launcher/discussions[create a new discussion] and I'll do my best to help, or point you towards something that might solve your issue.
+
+=== Development
+If you'd like to help out with improving Task Launcher, please feel free to create a fork and raise a pull request - contributions are most definitely welcome!
+
+== Miscellaneous
+Because I know eventually it'll get asked - the prompt I'm using in the screenshots is https://ohmyposh.dev/[Oh My Posh].
+My config is available https://github.com/SiJiL82/utils/tree/main/configs/oh-my-posh[here] - feel free to copy it!
