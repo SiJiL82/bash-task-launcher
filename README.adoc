@@ -151,3 +151,9 @@ example() {
     echo "This is an example task doing stuff"
 }
 ----
+
+== Creating Task Config Files
+To create a file to add task definitions to:
+* Create the file: `touch ./task_configs/submenu`
+* Make the file executable: `chmod +x ./task_configs/submenu`
+* Add the bash shebang to the top of the file: `#!/usr/bin/env bash`
