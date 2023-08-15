@@ -59,7 +59,7 @@ build_autocomplete_bash() {
 	local task autocomplete_file
 
 	readarray -t tasks <<< "$(tasks:filter 'NO-RUNNER|NO-AUTOCOMPLETE' | sort)"
-	autocomplete_file="./autocomplete/sd.bash"
+	autocomplete_file="./autocomplete/tl.bash"
 	
 	{
 		echo "#!/usr/bin/env bash"
