@@ -8,14 +8,6 @@
 	exit $((status ? status : 1))
 }
 
-:retry() {
-	local -a args
-	(($#)) && >&2 echo "$1"
-	# Run the function name passed as 2nd argument, with args from 3rd passed argument onwards
-	args=("${@:3}")
-	$2 "${args[@]}"
-}
-
 # Adds the English ordinal suffix to the specified number.
 ordinal() {
 	local -r n=$1
