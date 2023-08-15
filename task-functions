@@ -37,12 +37,12 @@ build_autocomplete_zsh() {
 	local -a tasks
 	local task
 	local -r autocomplete_dir="$1"
-	local -r autocomplete_file="$autocomplete_dir/_$TASK_LAUNCHER_NAME"
+	local -r autocomplete_file="$autocomplete_dir/_$task_launcher_name"
 
 	readarray -t tasks <<< "$(tasks:filter 'NO-RUNNER|NO-AUTOCOMPLETE' | sort)"
 
 	{
-		echo "#compdef $TASK_LAUNCHER_NAME"
+		echo "#compdef $task_launcher_name"
 		echo "local -a commands"
 		echo "commands=("
 		for task in "${tasks[@]}"; do
@@ -50,7 +50,7 @@ build_autocomplete_zsh() {
 		done
 		echo "'menu:Show the helper menu'"
 		echo ")"
-		echo "_describe '$TASK_LAUNCHER_NAME' commands"
+		echo "_describe '$task_launcher_name' commands"
 	} > "$autocomplete_file"
 }
 
@@ -58,7 +58,7 @@ build_autocomplete_bash() {
 	local -a tasks
 	local task
 	local -r autocomplete_dir="$1"
-	local -r autocomplete_file="$autocomplete_dir/$TASK_LAUNCHER_NAME.bash"
+	local -r autocomplete_file="$autocomplete_dir/$task_launcher_name.bash"
 
 	readarray -t tasks <<< "$(tasks:filter 'NO-RUNNER|NO-AUTOCOMPLETE' | sort)"
 	
@@ -70,6 +70,6 @@ build_autocomplete_bash() {
 		done
 		echo "menu"
 		echo "'"
-		echo -e "complete -W \"\${commands}\" '$TASK_LAUNCHER_NAME'"
+		echo -e "complete -W \"\${commands}\" '$task_launcher_name'"
 	} > "$autocomplete_file"
 }
