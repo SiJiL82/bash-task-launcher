@@ -1,5 +1,6 @@
 = Task Launcher
 :imagesdir: ./docs/images
+:source-highlighter: highlight.js
 :toc:
 
 == About
@@ -15,8 +16,6 @@ You could create a Task Launcher task called `build-and-run` that contains these
 
 Task Launcher also includes a CLI menu for all the tasks you've created, allowing you to execute the tasks available by entering their numeric input. +
 The menu includes support for sub-menus, allowing you to group related tasks together.
-
-image::tl_menu_submenu_example.png[]
 
 == Getting Started
 To start using Task Launcher, clone this repo: +
@@ -44,7 +43,41 @@ image::tl_menu_example.png[]
 You can then launch any of the tasks, or enter any of the sub menus by entering the numeric indicator next to the task description.
 
 == Installation
+Task Launcher can be called from any location in your terminal - you don't need to launch it from the location you've cloned it to every time.
+
+To install the launcher, simply run it from the location you've cloned it to once, and it will self install via symlink into `/usr/local/bin` +
+*_Note:_* _This may require `sudo` access and will attempt to elevate permissions if required._
+[source,bash]
+----
+cd ~/projects/bash-task-launcher
+./tl
+----
+
+=== Uninstallation
+To stop Task Launcher being available to run anywhere in your shell, simply remove the symlink from `/usr/local/bin` +
+*_Note:_* _This may require `sudo` access_
+[source,bash]
+----
+sudo rm /usr/local/bin/tl
+----
+
 === Shell Autocomplete
+Task Launcher includes autocomplete files for both `bash` and `zsh` shells that list all the available tasks. +
+*_Note:_* _Despite being a bash based CLI script, it will work when being called from other shells, as long as bash exists on the system_
+
+To enable the autocomplete prompts: +
+TODO: Document this!
+
+To initiate the autocomplete prompts: +
+*ZSH:* Type `tl` followed by a space to show the available tasks. Use the arrow keys to highlight and select a task, or start typing a task name to filter the list. +
+*Bash:* Type `tl` then press tab to view available tasks.
+
+==== Building the Autocomplete Files
+After adding any tasks to the Task Launcher, you'll need to update the autocomplete files so they include your new tasks.
+
+Simply run `tl build-autocomplete` to regenerate them.
+
+_Don't forget to commit these files along with your task definitions if you've forked this repository / added it to an existing project that's in source control_
 
 == Creating Tasks
 
