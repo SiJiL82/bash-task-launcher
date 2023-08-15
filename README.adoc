@@ -158,3 +158,73 @@ To create a file to add task definitions to:
 * Create the file: `touch ./task_configs/submenu`
 * Make the file executable: `chmod +x ./task_configs/submenu`
 * Add the bash shebang to the top of the file: `#!/usr/bin/env bash`
+
+== Other Features
+=== Useful Task Functions
+There are a few useful functions available in the `shared-functions` file that can be used in your task definitions to improve the user experience.
+
+==== `print_info` +
+Prints an information message to the user in blue text. +
+Usage:
+[source,bash]
+----
+example:menu() (echo EXAMPLE_MENU)
+example:describe() (echo 'An example task')
+example() {
+    print_info "To print information to the user, use 'print_info'"
+}
+----
+
+==== `print_warning` +
+Prints a warning message to the user in red text. +
+Usage:
+[source,bash]
+----
+example:menu() (echo EXAMPLE_MENU)
+example:describe() (echo 'An example task')
+example() {
+    print_warning "To print a warning to the user, use 'print_warning'"
+}
+----
+
+==== `prompt` +
+Prints a message to the user in yellow text, and waits for them to enter input.
+Usage:
+[source,bash]
+----
+example:menu() (echo EXAMPLE_MENU)
+example:describe() (echo 'An example task')
+example() {
+    input=$(prompt "Do you like this question?")
+    echo "You said '$input'"
+}
+----
+
+==== `arg_or_prompt` +
+Task functions can accept arguments to be used within the script, so when called on the CLI the user can provide the argument. +
+On the interactive menu however, the user must be prompted to enter the argument value. +
+If you would like users to have the option to either provide the argument on the CLI, or be prompted to enter it, you can use `arg_or_prompt` instead of `prompt`.
+Usage:
+[source,bash]
+----
+example:menu() (echo EXAMPLE_MENU)
+example:describe() (echo 'An example task')
+example() {
+    name=$(arg_or_prompt "$1" "Enter your name")
+	echo "Hello $name"
+}
+----
+
+image::tl_arg_or_prompt_example.png[]
+
+==== `:die` +
+If you want your a command in your task to print a warning message when it fails, pipe the error output to `:die`.
+Usage:
+[source,bash]
+----
+example:menu() (echo EXAMPLE_MENU)
+example:describe() (echo 'An example task')
+example() {
+    cd ./directory_that_doesnt_exist || :die "Cannot change directory"
+}
+----
