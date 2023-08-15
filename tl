@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-TASK_LAUNCHER_NAME="tl"
+TASK_LAUNCHER_NAME=$(basename "$0")
 
 cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" || exit
 
