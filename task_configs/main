@@ -6,3 +6,22 @@ utils-menu:describe() (echo 'Other Tools')
 utils-menu() {
 	menu "$(tasks:menuitems UTILS_MENU)"
 }
+
+example:menu() (echo MAIN_MENU)
+example:describe() (echo 'This is an example task')
+example() {
+	local -r t=$(get_longest_task_desc)
+
+	echo "The longest task description is $t characters long"
+}
+
+print-things:menu() (echo MAIN_MENU)
+print-things:describe() (echo 'This task shows the different print options')
+print-things() {
+	echo "To print in the default shell colour, just use 'echo'"
+	print_info "To print information to the user, use 'print_info'"
+	print_warning "To print a warning to the user, use 'print_warning'"
+	echo "To prompt the user to enter input, use 'prompt'"
+	input=$(prompt "Do you like this question?")
+	print_info "You said '$input'"
+}
