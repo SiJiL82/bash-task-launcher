@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+TASK_LAUNCHER_NAME="tl"
+
 cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" || exit
 
 source ./shared-functions
@@ -48,7 +50,7 @@ launcher() {
 	elif runner:has_task "$task"; then
 		invoke_task "$task" "${@:2}"
 	else
-		print_info "No arguments supplied. Try 'tl --help' to list available tasks"
+		print_info "No arguments supplied. Try '$TASK_LAUNCHER_NAME --help' to list available tasks"
 	fi
 }
 
