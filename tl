@@ -36,7 +36,7 @@ invoke_task() (
 	"$@"
 )
 
-tl() {
+launcher() {
 	local -r task=${1:-shell}
 
 	self_install
@@ -52,4 +52,4 @@ tl() {
 	fi
 }
 
-tl "$@"
+launcher "$@"
