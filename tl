@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-TASK_LAUNCHER_NAME=$(basename "$0")
+task_launcher_name=$(basename "$0")
 
 cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" || exit
 
@@ -9,19 +9,21 @@ source ./run
 
 # Installs this script on the PATH.
 self_install() {
-	local -r destination=/usr/local/bin script_name=$(basename "${BASH_SOURCE[0]}")
+	local -r destination=/usr/local/bin
 
 	# Nothing to do if already installed.
-	type -P "$script_name" &>/dev/null && return
+	type -P "$task_launcher_name" &>/dev/null && return
 
-	echo "$script_name will now install itself into $destination..."
+	print_info "$task_launcher_name will now install itself into $destination..."
 	sudo true || :die Privilege escalation failed.
 
-    if sudo ln -sf "$PWD/$script_name" "$destination"; then
-		print_info "Installation succeeded. From now on, simply use '$script_name' to invoke this script."
+    if sudo ln -sf "$PWD/$task_launcher_name" "$destination"; then
+		print_info "Installation succeeded. From now on, simply use '$task_launcher_name' to invoke this script."
     else
 		print_warning Installation failed.
     fi
+
+	exit
 }
 
 
@@ -50,7 +52,7 @@ launcher() {
 	elif runner:has_task "$task"; then
 		invoke_task "$task" "${@:2}"
 	else
-		print_info "No arguments supplied. Try '$TASK_LAUNCHER_NAME --help' to list available tasks"
+		print_info "No arguments supplied. Try '$task_launcher_name --help' to list available tasks"
 	fi
 }
 
