@@ -6,13 +6,16 @@ source ./shared-functions
 
 menu() {
 	local tasks task i=0 input x_option
+	local -r desc_width=$(get_longest_task_desc)
+	local -r desc_padding=6
+	local -r option_padding=2
 
 	mapfile -t tasks <<<"$1"
 
 	echo
 
 	for task in "${tasks[@]}"; do
-		print_option "$((++i))" 2 ": $("$task":describe)" 58
+		print_option "$((++i))" "$option_padding" ": $("$task":describe)" $((desc_width+desc_padding))
 	done | column
 	
 	if [[ $("${tasks[0]}":menu) = "MAIN_MENU" ]]; then

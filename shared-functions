@@ -47,3 +47,30 @@ arg_or_prompt() {
 	value=${1:-$(prompt "$2")}
   	echo "$value"
 }
+
+get_longest_task_name()  {
+	local -r tasks=$(get_exported_tasks)
+	local task_name_lengths task longest_task_name
+
+	while read -r task; do
+		task_name_lengths+=${#task}$'\n'
+	done <<<"$tasks"
+
+	longest_task_name=$(sort -nr <<<"$task_name_lengths" | head -1)
+
+	echo "$longest_task_name"
+}
+
+get_longest_task_desc()  {
+	local -r tasks=$(get_exported_tasks)
+	local task_desc_lengths task longest_task_desc
+
+	while read -r task; do
+		desc=$("$task":describe)
+		task_desc_lengths+=${#desc}$'\n'
+	done <<<"$tasks"
+	
+	longest_task_desc=$(sort -nr <<<"$task_desc_lengths" | head -1)
+	
+	echo "$longest_task_desc"
+}

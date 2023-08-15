@@ -13,7 +13,8 @@ runner:has_task() {
 
 runner:help() {
 	local -r tasks=$(get_exported_tasks)
-	local task task_name_lengths longest_task_name
+	local task longest_task_name
+	local -r padding=2
 
 	cat <<-.
 		${BLUE}usage:$NC '$0' <task> [arg]...
@@ -22,14 +23,10 @@ runner:help() {
 
 	.
 
-	# Determine longest task name length.
-	while read -r task; do
-		task_name_lengths+=${#task}$'\n'
-	done <<<"$tasks"
-	longest_task_name=$(sort -nr <<<"$task_name_lengths" | head -1)
+	longest_task_name=$(get_longest_task_name)
 
 	while read -r task; do
-		print_option "$task" "$((-longest_task_name))" " $("$task":describe)"
+		print_option "$task" "$((-(longest_task_name+padding)))" " $("$task":describe)"
 	done < <(sort <<<"$tasks")
 	echo
 }
