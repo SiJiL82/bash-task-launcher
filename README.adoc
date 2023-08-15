@@ -80,5 +80,33 @@ Simply run `tl build-autocomplete` to regenerate them.
 _Don't forget to commit these files along with your task definitions if you've forked this repository / added it to an existing project that's in source control_
 
 == Creating Tasks
+To create your own task for the Task Launcher, first decide on the task name. +
+This should be short, so it's quick to type on the CLI, but still accurately describe what the task will do. +
+Task names must be unique across the entire launcher - tasks on different sub menus cannot share names. +
+*_Note:_* _Your task name can only contain the charactes `a-z` (lowercase only) and the `-` character. +
+You cannot separate words in your task name with spaces or underscores.
+
+Edit the file in `task_configs` that contains the menu or sub-menu that your task relates to. +
+You can add all task and sub-menu definitions to a single file (such as `task_configs/main` if you wish, however it is recommended to create a separate file for each sub-menu to keep the configs tidy and easy to maintain.
+
+Copy the template below into the file you're adding the task to:
+[source,bash]
+----
+example:menu() (echo MAIN_MENU)
+example:describe() (echo 'This is the task description')
+example() {
+    # Enter your commands here
+}
+----
+Replace the `example` task name with your new task name.
+
+Enter a suitable description for the task, so it's clear what the task does. +
+Keep the description short and concise, as very long descriptions will make the interactive menu unwieldy.
+
+Enter the commands you want your task to run in the main task function.
+
+Save the file and test it by running `tl task-name`
+
+_When your new task is complete, update the autocomplete files to include it_
 
 == Creating Sub Menus
