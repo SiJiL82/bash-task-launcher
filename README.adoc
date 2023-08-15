@@ -80,6 +80,7 @@ Simply run `tl build-autocomplete` to regenerate them.
 _Don't forget to commit these files along with your task definitions if you've forked this repository / added it to an existing project that's in source control_
 
 == Creating Tasks
+=== Creating the Task Definition
 To create your own task for the Task Launcher, first decide on the task name. +
 This should be short, so it's quick to type on the CLI, but still accurately describe what the task will do. +
 Task names must be unique across the entire launcher - tasks on different sub menus cannot share names. +
@@ -111,7 +112,7 @@ Save the file and test it by running `tl task-name`
 
 _When your new task is complete, update the autocomplete files to include it_
 
-== Creating Sub Menus
+=== Creating Sub Menus
 To prevent the initial menu screen from becoming overwhelming with many tasks in it, you can create sub-menus to group related tasks together intuitively. +
 *_Note:_* _A task being in a sub-menu does not affect the way it is called on the CLI in any way_
 
@@ -152,7 +153,7 @@ example() {
 }
 ----
 
-== Creating Task Config Files
+=== Creating Task Config Files
 To create a file to add task definitions to:
 * Create the file: `touch ./task_configs/submenu`
 * Make the file executable: `chmod +x ./task_configs/submenu`
