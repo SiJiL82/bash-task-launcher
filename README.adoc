@@ -14,8 +14,8 @@ npm start
 ----
 You could create a Task Launcher task called `build-and-run` that contains these commands, and run them from anywhere in your shell by simply calling `tl build-and-run`.
 
-Task Launcher also includes a CLI menu for all the tasks you've created, allowing you to execute the tasks available by entering their numeric input. +
-The menu includes support for sub-menus, allowing you to group related tasks together.
+Task Launcher also includes an interactive menu for all the tasks you've created, allowing you to execute the tasks available by entering their numeric input. +
+The menu includes support for sub-menus, allowing you to group related tasks together, and can prompt for user input to provide variable data to your tasks.
 
 == Getting Started
 To start using Task Launcher, clone this repo: +
@@ -40,7 +40,9 @@ To launch the interactive menu, call `tl m` or `tl menu`:
 
 image::tl_menu_example.png[]
 
-You can then launch any of the tasks, or enter any of the sub menus by entering the numeric indicator next to the task description.
+You can then launch any of the tasks, or enter any of the sub menus by entering the numeric indicator next to the task description:
+
+image::tl_menu_task_run.png[]
 
 == Installation
 Task Launcher can be called from any location in your terminal - you don't need to launch it from the location you've cloned it to every time.
@@ -245,5 +247,5 @@ If you need any help getting Task Launcher up and running, creating a task for i
 If you'd like to help out with improving Task Launcher, please feel free to create a fork and raise a pull request - contributions are most definitely welcome!
 
 == Miscellaneous
-Because I know eventually it'll get asked - the prompt I'm using in the screenshots is https://ohmyposh.dev/[Oh My Posh].
+Because I know eventually it'll get asked - the prompt I'm using in the screenshots is https://ohmyposh.dev/[Oh My Posh]. +
 My config is available https://github.com/SiJiL82/utils/tree/main/configs/oh-my-posh[here] - feel free to copy it!
