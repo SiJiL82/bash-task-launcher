@@ -84,10 +84,10 @@ To create your own task for the Task Launcher, first decide on the task name. +
 This should be short, so it's quick to type on the CLI, but still accurately describe what the task will do. +
 Task names must be unique across the entire launcher - tasks on different sub menus cannot share names. +
 *_Note:_* _Your task name can only contain the charactes `a-z` (lowercase only) and the `-` character. +
-You cannot separate words in your task name with spaces or underscores.
+You cannot separate words in your task name with spaces or underscores._
 
 Edit the file in `task_configs` that contains the menu or sub-menu that your task relates to. +
-You can add all task and sub-menu definitions to a single file (such as `task_configs/main` if you wish, however it is recommended to create a separate file for each sub-menu to keep the configs tidy and easy to maintain.
+You can add all task and sub-menu definitions to a single file (such as `task_configs/main`) if you wish, however it is recommended to create a separate file for each sub-menu to keep the configs tidy and easy to maintain.
 
 Copy the template below into the file you're adding the task to:
 [source,bash]
@@ -100,6 +100,8 @@ example() {
 ----
 Replace the `example` task name with your new task name.
 
+If your task needs to be in a sub-menu, replace `MAIN_MENU` with the name of your sub-menu.
+
 Enter a suitable description for the task, so it's clear what the task does. +
 Keep the description short and concise, as very long descriptions will make the interactive menu unwieldy.
 
@@ -110,3 +112,42 @@ Save the file and test it by running `tl task-name`
 _When your new task is complete, update the autocomplete files to include it_
 
 == Creating Sub Menus
+To prevent the initial menu screen from becoming overwhelming with many tasks in it, you can create sub-menus to group related tasks together intuitively. +
+*_Note:_* _A task being in a sub-menu does not affect the way it is called on the CLI in any way_
+
+It is recommended to create tasks in a sub-menu in a separate file to keep the config files from becoming difficult to maintain. +
+However, if you want your sub-menu option to appear on the main menu, you should create the sub-menu task in the `task_configs/main` file. +
+Task Launcher supports any level of nested sub-menus - to create a nested sub-menu, simply define the `:menu` function with the name of the menu you wish your sub-menu to appear on.
+
+Edit the file in `task_configs` that contains the menu you want your sub-menu option to appear on. +
+For example, to include it on the main menu, edit `task_configs/main`. +
+*_Note:_* _This is purely for maintainability - you can add the definition to any file you like!_
+
+Copy the template below into the file:
+[source,bash]
+----
+example-menu:menu() (echo MAIN_MENU)
+example-menu:meta() (echo NO-RUNNER)
+example-menu:describe() (echo 'This is the menu description')
+example-menu() {
+	menu "$(tasks:menuitems EXAMPLE_MENU)"
+}
+----
+Replace the `example-menu` task name with your new menu task name (e.g.: `npm-tools-menu`).
+
+Do not edit the `:meta` definition. This is required to prevent the sub-menu task being listed as an available task to run.
+
+Enter a suitable description for your sub-menu.
+
+Inside the menu definition function, replace `EXAMPLE_MENU` with the name of your new menu (e.g.: `NPM_TOOLS_MENU`).
+
+Update any tasks that you want to appear on the sub-menu, setting their `:menu` definition to match the name you have just assigned above. +
+For example:
+[source,bash]
+----
+example:menu() (echo EXAMPLE_MENU)
+example:describe() (echo 'An example task')
+example() {
+    echo "This is an example task doing stuff"
+}
+----
