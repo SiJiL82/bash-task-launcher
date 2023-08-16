@@ -2,6 +2,8 @@
 local -a commands
 commands=(
 'build-autocomplete:Build shell autocomplete files'
+'example:This is an example task'
+'print-things:This task shows the different print options'
 'menu:Show the helper menu'
 )
 _describe 'tl' commands
