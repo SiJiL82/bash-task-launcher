@@ -67,12 +67,30 @@ sudo rm /usr/local/bin/tl
 Task Launcher includes autocomplete files for both `bash` and `zsh` shells that list all the available tasks. +
 *_Note:_* _Despite being a bash based CLI script, it will work when being called from other shells, as long as bash exists on the system_
 
-To enable the autocomplete prompts: +
-TODO: Document this!
+To enable the autocomplete prompts follow the steps relevant to the shell you're using: +
 
-To initiate the autocomplete prompts: +
-*ZSH:* Type `tl` followed by a space to show the available tasks. Use the arrow keys to highlight and select a task, or start typing a task name to filter the list. +
-*Bash:* Type `tl` then press tab to view available tasks.
+==== zsh:
+* Get the full path to the `autocomplete` folder in the cloned repo on your machine +
+e.g.: `/home/USER_NAME/projects/bash-task-launcher/autocomplete`
+* Edit your `~/.zshrc` file
+* Add the line `fpath=(path_found_above $fpath)`
+** e.g.: `fpath=(/home/USER_NAME/projects/bash-task-launcher/autocomplete $fpath)`
+* Restart your terminal.
+
+Now when you type `tl` followed by a space on the terminal, you should get a list of available commands to choose from. +
+The list will update as you type, filtering down to relevant commands.
+
+==== bash:
+* Get the full path to the `autocomplete/tl.bash` file on your machine.
+** e.g.: `/home/USER_NAME/projects/bash-task-launcher/autocomplete/sd.bash`
+* Edit your `~/.bashrc` file
+* Add the line `source path_found_above`
+** e.g.: `source /home/USER_NAME/projects/bash-task-launcher/autocomplete/tl.bash`
+* Restart your terminal
+
+Now when you type `tl` followed by a space and press TAB twice, a list of available commands will be shown. +
+If you start typing a task name and then press TAB and only one available command is available, it will be autocompleted for you. +
+e.g.: If you have a task named `example`, type `tl exa` and press TAB and it will autocomplete to `tl example`
 
 ==== Building the Autocomplete Files
 After adding any tasks to the Task Launcher, you'll need to update the autocomplete files so they include your new tasks.
