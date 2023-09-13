@@ -17,11 +17,11 @@ self_install() {
 	print_info "$task_launcher_name will now install itself into $destination..."
 	sudo true || :die Privilege escalation failed.
 
-    if sudo ln -sf "$PWD/$task_launcher_name" "$destination"; then
+	if sudo ln -sf "$PWD/$task_launcher_name" "$destination"; then
 		print_info "Installation succeeded. From now on, simply use '$task_launcher_name' to invoke this script."
-    else
+	else
 		print_warning Installation failed.
-    fi
+	fi
 
 	exit
 }
