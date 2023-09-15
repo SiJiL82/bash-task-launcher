@@ -39,13 +39,24 @@ print_option() {
 
 prompt() {
 	local value
-	read -er -p "$YELLOW$1:$NC " value
+	local prompt_text="$YELLOW$1:$NC "
+
+	if [[ "$2" ]]; then
+		prompt_text="$YELLOW$1 (ENTER to accept default '$2'):$NC "
+	fi
+
+	read -er -p "$prompt_text" value
+
+	if [[ "$value" == $'\0A' ]]; then
+		value="$2"
+	fi
+
 	echo "$value"
 }
 
 arg_or_prompt() {
-	value=${1:-$(prompt "$2")}
-  	echo "$value"
+	value=${1:-$(prompt "$2" "$3")}
+	echo "$value"
 }
 
 get_longest_task_name()  {
