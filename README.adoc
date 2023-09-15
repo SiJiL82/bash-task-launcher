@@ -241,12 +241,23 @@ Usage:
 [source,bash]
 ----
 example:menu() (echo EXAMPLE_MENU)
-example:describe() (echo 'An example task')
+example:describe() (echo 'Prompt the user')
 example() {
+    input=$(prompt "Do you like this question?")
+    echo "You said '$input'"
+}
+----
+[source,bash]
+----
+example-default:menu() (echo EXAMPLE_MENU)
+example-default:describe() (echo 'Prompt the user with a default response')
+example-default() {
     input=$(prompt "Do you like this question?" "No")
     echo "You said '$input'"
 }
 ----
+
+image::tl_prompt_example.png[]
 
 ==== `arg_or_prompt` +
 Task functions can accept arguments to be used within the script, so when called on the CLI the user can provide the argument. +
