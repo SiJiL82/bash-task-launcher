@@ -235,14 +235,15 @@ example() {
 ----
 
 ==== `prompt` +
-Prints a message to the user in yellow text, and waits for them to enter input.
+Prints a message to the user in yellow text, and waits for them to enter input. +
+An optional default can be provided that the user can accept by pressing enter immediately. +
 Usage:
 [source,bash]
 ----
 example:menu() (echo EXAMPLE_MENU)
 example:describe() (echo 'An example task')
 example() {
-    input=$(prompt "Do you like this question?")
+    input=$(prompt "Do you like this question?" "No")
     echo "You said '$input'"
 }
 ----
