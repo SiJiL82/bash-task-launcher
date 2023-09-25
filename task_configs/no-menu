@@ -26,7 +26,7 @@ enable-debug() {
 
 disable-debug:menu() (echo NO_MENU)
 disable-debug:meta() (echo NO-AUTOCOMPLETE)
-disable-debug:describe() (echo 'Enable debug mode')
+disable-debug:describe() (echo 'Disable debug mode')
 disable-debug() {
 	temporary_setting TL_DEBUG_PATH ""
 }
