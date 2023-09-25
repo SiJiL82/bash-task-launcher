@@ -15,6 +15,15 @@ example() {
 	echo "The longest task description is $t characters long"
 }
 
+example-arg:menu() (echo MAIN_MENU)
+example-arg:describe() (echo 'This is an example task with an argument')
+example-arg() {
+	local -r arg=$(arg_or_prompt "$1" "Enter your name")
+
+	echo "Argument provided was $arg"
+}
+
+
 print-things:menu() (echo MAIN_MENU)
 print-things:describe() (echo 'This task shows the different print options')
 print-things() {
