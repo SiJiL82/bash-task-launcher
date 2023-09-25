@@ -1,23 +1,31 @@
 #!/usr/bin/env bash
 
 enable-debug:menu() (echo NO_MENU)
-enable-debug:meta() (echo NO_AUTOCOMPLETE)
+enable-debug:meta() (echo NO-AUTOCOMPLETE)
 enable-debug:describe() (echo 'Enable debug mode')
 enable-debug() {
-    ./tl disable-debug
+	./tl disable-debug
 
-    # shellcheck disable=SC2016
-    print_info 'Path provided must be absolute. You cannot use shorthands such as ~ or $HOME'
-    local -r output_path=$(prompt "Enter output file path")
+	# shellcheck disable=SC2016
+	print_info 'Path provided must be absolute. You cannot use shorthands such as ~ or $HOME'
+	local -r output_path=$(prompt "Enter output file path")
 
-    temporary_setting TL_DEBUG_PATH "$output_path"
+	if test -f "$output_path"; then
+		print_info "$output_path already exists."
+		input=$(prompt "Delete it?")
+		if [[ $input =~ ^([yY])$|^([yY][eE][sS])$ ]]; then
+			rm "$output_path"
+		fi
+	fi
 
-    print_warning "This option will log all output to the file provided."
-    print_warning "Run the 'disable-debug' task to return to normal terminal only output"
+	temporary_setting TL_DEBUG_PATH "$output_path"
+
+	print_warning "This option will log all output to the file provided."
+	print_warning "Run the 'disable-debug' task to return to normal terminal only output"
 }
 
 disable-debug:menu() (echo NO_MENU)
-disable-debug:meta() (echo NO_AUTOCOMPLETE)
+disable-debug:meta() (echo NO-AUTOCOMPLETE)
 disable-debug:describe() (echo 'Enable debug mode')
 disable-debug() {
 	temporary_setting TL_DEBUG_PATH ""

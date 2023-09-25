@@ -4,7 +4,7 @@
 :die() {
 	local -r status=$?
 
-	(($#)) && >&2 print_warning "$*"
+	(($#)) && print_warning "$*" 2>&1
 	exit $((status ? status : 1))
 }
 
@@ -22,11 +22,11 @@ ordinal() {
 }
 
 print_info() {
-	>&2 echo -e "$BLUE$1$NC"
+	echo -e "$BLUE$1$NC" 2>&1
 }
 
 print_warning() {
-	>&2 echo -e "$RED$1$NC"
+	echo -e "$RED$1$NC" 2>&1
 }
 
 print_option() {
@@ -46,6 +46,10 @@ prompt() {
 	fi
 
 	read -er -p "$prompt_text" value
+
+	if [[ -n $debug_path ]]; then
+		echo "$prompt_text$value" >> "$debug_path"
+	fi
 
 	if [[ "$value" == $'\0A' ]]; then
 		value="$2"
