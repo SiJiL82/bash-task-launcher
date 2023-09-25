@@ -73,3 +73,13 @@ build_autocomplete_bash() {
 		echo -e "complete -W \"\${commands}\" '$task_launcher_name'"
 	} > "$autocomplete_file"
 }
+
+temporary_setting() {
+    # If only 1 arg supplied, retrieve it
+    if (( $# == 1)); then
+        [[ -e "/tmp/$1" ]] && cat "/tmp/$1"
+    else
+        # Set new value
+        printf "%s" "$2" > "/tmp/$1"
+    fi
+}
