@@ -91,16 +91,16 @@ get_longest_task_desc()  {
 }
 
 prompt_options() {
-	local option_lengths option_list_item option
+	local option option_lengths 
 
 	local -n _option_list=$1
 	local -r num_options="${#_option_list[@]}"
 	local -r option_padding=${#num_options}
 	local -r desc_padding=6
 
-	while read -r option_list_item; do
-		option_lengths+=${#option_list_item}$'\n'
-	done <<<"$_option_list"
+	for option in "${_option_list[@]}"; do
+		option_lengths+=${#option}$'\n'
+	done
 
 	local -r longest_option=$(sort -nr <<<"$option_lengths" | head -1)
 
@@ -109,7 +109,7 @@ prompt_options() {
 	done
 	>&2 print_option "x" "$option_padding" ": Cancel"
 
-	input=$(prompt "Input selection")
+	local -r input=$(prompt "Input selection")
 
 	if ((input > 0 && input <= num_options)); then
 		echo "${_option_list[$((input - 1))]}"
