@@ -33,6 +33,10 @@ tasks:menuitems() {
 	done
 }
 
+get_runnable_tasks() {
+	tasks:filter NO-RUNNER
+}
+
 build_autocomplete_zsh() {
 	local -a tasks
 	local task

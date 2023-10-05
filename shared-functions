@@ -64,7 +64,7 @@ arg_or_prompt() {
 }
 
 get_longest_task_name()  {
-	local -r tasks=$(get_exported_tasks)
+	local -r tasks=$(get_runnable_tasks)
 	local task_name_lengths task longest_task_name
 
 	while read -r task; do
@@ -77,7 +77,7 @@ get_longest_task_name()  {
 }
 
 get_longest_task_desc()  {
-	local -r tasks=$(get_exported_tasks)
+	local -r tasks=$(get_runnable_tasks)
 	local task_desc_lengths task longest_task_desc
 
 	while read -r task; do
