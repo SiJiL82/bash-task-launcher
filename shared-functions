@@ -127,7 +127,7 @@ arg_or_prompt_options() {
 	if [[ ! "${_list[*]}" =~ $value ]]; then
 		>&2 print_warning "'$value' is not a valid option"
 
-    	value=$(prompt_options _list)
+		value=$(prompt_options _list)
 	fi
 
 	echo "$value"

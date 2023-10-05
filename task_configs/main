@@ -27,11 +27,11 @@ example-options:menu() (echo MAIN_MENU)
 example-options:describe() (echo 'An example task with options')
 example-options() {
 	# shellcheck disable=SC2034
-    local -r options=("One" "Two" "Three" "Four" "Five" "Six" "Seven" "Eight" "Nine" "Ten")
+	local -r options=("One" "Two" "Three" "Four" "Five" "Six" "Seven" "Eight" "Nine" "Ten")
 
-    local -r choice=$(arg_or_prompt_options options "$1")
+	local -r choice=$(arg_or_prompt_options options "$1")
 
-    print_info "You chose: $choice"
+	print_info "You chose: $choice"
 }
 
 print-things:menu() (echo MAIN_MENU)
