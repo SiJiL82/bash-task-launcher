@@ -33,6 +33,10 @@ tasks:menuitems() {
 	done
 }
 
+get_runnable_tasks() {
+	tasks:filter NO-RUNNER
+}
+
 build_autocomplete_zsh() {
 	local -a tasks
 	local task
@@ -75,11 +79,11 @@ build_autocomplete_bash() {
 }
 
 temporary_setting() {
-    # If only 1 arg supplied, retrieve it
-    if (( $# == 1)); then
-        [[ -e "/tmp/$1" ]] && cat "/tmp/$1"
-    else
-        # Set new value
-        printf "%s" "$2" > "/tmp/$1"
-    fi
+	# If only 1 arg supplied, retrieve it
+	if (( $# == 1)); then
+		[[ -e "/tmp/$1" ]] && cat "/tmp/$1"
+	else
+		# Set new value
+		printf "%s" "$2" > "/tmp/$1"
+	fi
 }

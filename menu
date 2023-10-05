@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-source ./colours
-source ./task-functions
-source ./shared-functions
-
 menu() {
 	local tasks task i=0 input x_option
 	local -r desc_width=$(get_longest_task_desc)
