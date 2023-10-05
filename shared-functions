@@ -48,7 +48,7 @@ prompt() {
 	read -er -p "$prompt_text" value
 
 	if [[ -n $debug_path ]]; then
-		echo "$prompt_text$value" >> "$debug_path"
+		echo "$prompt_text$value"
 	fi
 
 	if [[ "$value" == $'\0A' ]]; then

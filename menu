@@ -29,7 +29,7 @@ menu() {
 
 	if ((input > 0 && input <= ${#tasks[@]})); then
 		# Execute task in a subshell.
-		(launcher "${tasks[$((input - 1))]}")
+		(${tasks[$((input - 1))]})
 	elif [[ $input =~ ^[xX]?$ ]]; then
 		exit
 	else
