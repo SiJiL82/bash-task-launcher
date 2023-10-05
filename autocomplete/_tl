@@ -3,6 +3,7 @@ local -a commands
 commands=(
 'build-autocomplete:Build shell autocomplete files'
 'example:This is an example task'
+'example-arg:This is an example task with an argument'
 'print-things:This task shows the different print options'
 'menu:Show the helper menu'
 )

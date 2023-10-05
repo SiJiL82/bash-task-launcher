@@ -2,6 +2,7 @@
 commands='
 build-autocomplete
 example
+example-arg
 print-things
 menu
 '

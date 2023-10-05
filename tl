@@ -50,7 +50,18 @@ launcher() {
 	elif [[ $task =~ ^(-?h|(--)?help)$ ]]; then
 		runner:help
 	elif runner:has_task "$task"; then
-		invoke_task "$task" "${@:2}"
+		debug_path=$(temporary_setting TL_DEBUG_PATH)
+		if [[ -z $debug_path ]]; then
+			invoke_task "$task" "${@:2}"
+		else
+			{
+				print_info "***************************************"
+				print_info "Task: $*"
+				print_info "***************************************"
+			} &>> "$debug_path"
+
+			invoke_task "$task" "${@:2}" | tee -a "$debug_path"
+		fi
 	else
 		print_info "No arguments supplied. Try '$task_launcher_name --help' to list available tasks"
 	fi

@@ -293,6 +293,17 @@ If you have common commands that are shared across a number of tasks, it is reco
 
 This is entirely optional, however doing so helps to keep the task config files tidy and maintainable.
 
+== Troubleshooting
+=== Debug Logging
+If you want to capture all the output from a task to assist with troubleshooting, run the `enable-debug` task. +
+This task prompts for a file location to write the output to, in addition to logging to the terminal. +
+This can be especially useful for capturing output from tasks such as Docker build jobs which can generate a lot of logging and then compress the output in the terminal, making it difficult to review for issues.
+
+To disable logging, run the `disable-debug` task. +
+
+
+*_Note:_* _These tasks do not appear on any menus, or in the shell autocomplete commands. They must be executed manually by the user._
+
 == Contributing
 === Issues / bugs
 If you find anything not working correctly, please https://github.com/SiJiL82/bash-task-launcher/issues[raise an issue]
