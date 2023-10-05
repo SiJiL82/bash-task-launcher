@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 enable-debug:menu() (echo NO_MENU)
-enable-debug:meta() (echo NO-AUTOCOMPLETE)
+enable-debug:meta() (echo NO-AUTOCOMPLETE NO-HELP)
 enable-debug:describe() (echo 'Enable debug mode')
 enable-debug() {
 	./tl disable-debug
@@ -25,7 +25,7 @@ enable-debug() {
 }
 
 disable-debug:menu() (echo NO_MENU)
-disable-debug:meta() (echo NO-AUTOCOMPLETE)
+disable-debug:meta() (echo NO-AUTOCOMPLETE NO-HELP)
 disable-debug:describe() (echo 'Disable debug mode')
 disable-debug() {
 	temporary_setting TL_DEBUG_PATH ""

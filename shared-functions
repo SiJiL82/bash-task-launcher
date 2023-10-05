@@ -64,7 +64,7 @@ arg_or_prompt() {
 }
 
 get_longest_task_name()  {
-	local -r tasks=$(get_exported_tasks)
+	local -r tasks=$(tasks:filter "NO-RUNNER|NO-MENU")
 	local task_name_lengths task longest_task_name
 
 	while read -r task; do
@@ -77,7 +77,7 @@ get_longest_task_name()  {
 }
 
 get_longest_task_desc()  {
-	local -r tasks=$(get_exported_tasks)
+	local -r tasks=$(tasks:filter "NO-RUNNER|NO-MENU")
 	local task_desc_lengths task longest_task_desc
 
 	while read -r task; do
@@ -88,4 +88,14 @@ get_longest_task_desc()  {
 	longest_task_desc=$(sort -nr <<<"$task_desc_lengths" | head -1)
 	
 	echo "$longest_task_desc"
+}
+
+temporary_setting() {
+    # If only 1 arg supplied, retrieve it
+    if (( $# == 1)); then
+        [[ -e "/tmp/$1" ]] && cat "/tmp/$1"
+    else
+        # Set new value
+        printf "%s" "$2" > "/tmp/$1"
+    fi
 }

@@ -18,7 +18,14 @@ tasks:scan() {
 tasks:filter() {
 	local task
 	tasks:scan | while read -r task; do
-		[[ ! $(type -t "$task:meta") = function || ! $("$task:meta") =~ $1 ]] && echo "$task"
+		[[ ! $(type -t "$task:meta") == function || ! $("$task:meta") =~ $1 ]] && echo "$task"
+	done
+}
+
+tasks:menus() {
+	local task
+	tasks:scan | while read -r task; do
+		[[ $(type -t "$task:sub-menu") == function ]] && echo "$task"
 	done
 }
 
@@ -74,12 +81,3 @@ build_autocomplete_bash() {
 	} > "$autocomplete_file"
 }
 
-temporary_setting() {
-    # If only 1 arg supplied, retrieve it
-    if (( $# == 1)); then
-        [[ -e "/tmp/$1" ]] && cat "/tmp/$1"
-    else
-        # Set new value
-        printf "%s" "$2" > "/tmp/$1"
-    fi
-}

@@ -3,9 +3,7 @@
 utils-menu:menu() (echo MAIN_MENU)
 utils-menu:meta() (echo NO-RUNNER)
 utils-menu:describe() (echo 'Other Tools')
-utils-menu() {
-	menu "$(tasks:menuitems UTILS_MENU)"
-}
+utils-menu:sub-menu() (echo UTILS_MENU)
 
 example:menu() (echo MAIN_MENU)
 example:describe() (echo 'This is an example task')

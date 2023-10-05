@@ -10,6 +10,8 @@ menu() {
 	local -r desc_padding=6
 	local -r option_padding=2
 
+	>&2 echo "Menu file $1"
+
 	mapfile -t tasks <<<"$1"
 
 	echo
