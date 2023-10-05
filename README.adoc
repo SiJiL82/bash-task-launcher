@@ -276,6 +276,36 @@ example() {
 
 image::tl_arg_or_prompt_example.png[]
 
+==== `prompt_options` +
+Prints a list of options for the user to chose from. +
+Returns the option item selected - not the numerical position of the item. +
+Usage:
+[source,bash]
+----
+example-options:menu() (echo MAIN_MENU)
+example-options:describe() (echo 'An example task with options')
+example-options() {
+    local -r options=("One" "Two" "Three" "Four" "Five" "Six" "Seven" "Eight" "Nine" "Ten")
+    local -r choice=$(prompt_options options)
+    print_info "You chose: $choice"
+}
+----
+
+==== `arg_or_prompt_options` +
+Allows the user to provide the option they wish to chose as a CLI argument. +
+The value they provide will be checked to see if it is in the option values you provide, and prompt them to chose a new value if not. +
+Usage: 
+[source,bash]
+----
+example-options:menu() (echo MAIN_MENU)
+example-options:describe() (echo 'An example task with options')
+example-options() {
+    local -r options=("One" "Two" "Three" "Four" "Five" "Six" "Seven" "Eight" "Nine" "Ten")
+    local -r choice=$(arg_or_prompt_options options "$1")
+    print_info "You chose: $choice"
+}
+----
+
 ==== `:die` +
 If you want a command in your task to print a warning message when it fails, call `:die` as an "or" option on your command.
 Usage:
