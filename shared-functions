@@ -89,3 +89,34 @@ get_longest_task_desc()  {
 	
 	echo "$longest_task_desc"
 }
+
+prompt_options() {
+	local option_lengths option_list_item
+
+	local -n _option_list=$1
+	local -r num_options="${#_option_list[@]}"
+	local -r option_padding=${#num_options}
+	local -r desc_padding=6
+
+
+	while read -r option_list_item; do
+		option_lengths+=${#option_list_item}$'\n'
+	done <<<"$_option_list"
+
+	local -r longest_option=$(sort -nr <<<"$option_lengths" | head -1)
+
+	for option in "${_option_list[@]}"; do
+		>&2 print_option "$((++i))" "$option_padding" ": $option" $((longest_option+desc_padding)) 
+	done
+	>&2 print_option "x" 2 ": Cancel"
+
+	input=$(prompt "Input selection")
+
+	if ((input > 0 && input <= num_options)); then
+		echo "${_option_list[$((input - 1))]}"
+	elif [[ $input =~ ^[xX]$ ]]; then
+		exit
+	else
+		print_warning "Invalid selection: '$input'"
+	fi
+}
