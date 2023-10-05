@@ -91,13 +91,12 @@ get_longest_task_desc()  {
 }
 
 prompt_options() {
-	local option_lengths option_list_item
+	local option_lengths option_list_item option
 
 	local -n _option_list=$1
 	local -r num_options="${#_option_list[@]}"
 	local -r option_padding=${#num_options}
 	local -r desc_padding=6
-
 
 	while read -r option_list_item; do
 		option_lengths+=${#option_list_item}$'\n'
@@ -108,7 +107,7 @@ prompt_options() {
 	for option in "${_option_list[@]}"; do
 		>&2 print_option "$((++i))" "$option_padding" ": $option" $((longest_option+desc_padding)) 
 	done
-	>&2 print_option "x" 2 ": Cancel"
+	>&2 print_option "x" "$option_padding" ": Cancel"
 
 	input=$(prompt "Input selection")
 
@@ -119,4 +118,17 @@ prompt_options() {
 	else
 		print_warning "Invalid selection: '$input'"
 	fi
+}
+
+arg_or_prompt_options() {
+	local -n _list=$1
+	local value=${2:-$(prompt_options _list)}
+
+	if [[ ! "${_list[*]}" =~ $value ]]; then
+		>&2 print_warning "'$value' is not a valid option"
+
+    	value=$(prompt_options _list)
+	fi
+
+	echo "$value"
 }
