@@ -262,7 +262,7 @@ image::tl_prompt_example.png[]
 ==== `arg_or_prompt` +
 Task functions can accept arguments to be used within the script, so when called on the CLI the user can provide the argument. +
 On the interactive menu however, the user must be prompted to enter the argument value. +
-If you would like users to have the option to either provide the argument on the CLI, or be prompted to enter it, you can use `arg_or_prompt` instead of `prompt`.
+If you would like users to have the option to either provide the argument on the CLI, or be prompted to enter it, you can use `arg_or_prompt` instead of `prompt`. +
 Usage:
 [source,bash]
 ----
@@ -307,7 +307,7 @@ example-options() {
 ----
 
 ==== `:die` +
-If you want a command in your task to print a warning message when it fails, call `:die` as an "or" option on your command.
+If you want a command in your task to print a warning message when it fails, call `:die` as an "or" option on your command. +
 Usage:
 [source,bash]
 ----

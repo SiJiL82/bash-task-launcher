@@ -11,7 +11,12 @@ menu() {
 	echo
 
 	for task in "${tasks[@]}"; do
-		print_option "$((++i))" "$option_padding" ": $("$task":describe)" $((desc_width+desc_padding))
+		# If task is a submenu, print in a different colour
+		if [[ "$task" =~ /*.-menu ]]; then
+			print_option "$((++i))" "$option_padding" ": $("$task":describe)" $((desc_width+desc_padding)) "$LIGHTBLUE"
+		else
+			print_option "$((++i))" "$option_padding" ": $("$task":describe)" $((desc_width+desc_padding))
+		fi
 	done | column
 	
 	if [[ $("${tasks[0]}":menu) = "MAIN_MENU" ]]; then

@@ -41,6 +41,8 @@ print-things() {
 	print_info "To print information to the user, use 'print_info'"
 	print_warning "To print a warning to the user, use 'print_warning'"
 	echo "To prompt the user to enter input, use 'prompt'"
-	input=$(prompt "Do you like this question?")
+	local -r input=$(prompt "Do you like this question?")
 	print_info "You said '$input'"
+	local -r input_default=$(prompt "This question has a default provided. Do you want to accept it?" "Y")
+	print_info "You said '$input_default'"
 }
