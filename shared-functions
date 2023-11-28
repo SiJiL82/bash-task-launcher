@@ -34,7 +34,8 @@ print_option() {
 	local -r option_width="$2" # Negative number: left align, positive: right align
 	local -r option_desc="$3"
 	local -r padding=${4:-0}
-	printf '%s%'"$option_width"'s%-'"$padding"'s\n' "$GREEN" "$option" "$NC$option_desc"
+	local -r desc_colour=${5:-$NC}
+	printf '%s%'"$option_width"'s%-'"$padding"'s\n' "$GREEN" "$option" "$desc_colour$option_desc$NC"
 }
 
 prompt() {
