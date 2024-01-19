@@ -43,7 +43,7 @@ prompt() {
 	local prompt_text="$YELLOW$1:$NC "
 
 	if [[ "$2" ]]; then
-		prompt_text="$YELLOW$1 [$2]:$NC "
+		prompt_text="$YELLOW$1 ${ORANGE}[$2]$YELLOW:$NC "
 	fi
 
 	read -er -p "$prompt_text" value
